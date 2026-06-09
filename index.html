@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Rescue AI - Clear Navigation</title>
+    <title>Rescue AI - Clear Navigation (No Arrow)</title>
     
     <!-- TensorFlow.js for AI Object Detection -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3"></script>
-    
-    <!-- Three.js for AR Arrow -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-            }
-        }
-    </script>
     
     <style>
         * {
@@ -51,17 +42,6 @@
             position: absolute;
             top: 0;
             left: 0;
-        }
-        
-        /* AR Canvas - Transparent overlay for arrow */
-        canvas#ar-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
         }
         
         /* TOP STATUS BAR - Shows location and nearest shelter */
@@ -147,32 +127,32 @@
             border-left: 2px solid #0ff;
         }
         
-        /* DIRECTION HINT - MOVED TO TOP-LEFT CORNER (Non-blocking) */
+        /* DIRECTION HINT - TOP LEFT CORNER (Only guidance, no arrow overlay) */
         .direction-hint {
             position: fixed;
             top: 85px;
             left: 12px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(12px);
-            padding: 8px 14px;
-            border-radius: 30px;
+            padding: 10px 16px;
+            border-radius: 40px;
             z-index: 15;
             pointer-events: none;
             text-align: center;
-            border: 1.5px solid #00ffff;
-            box-shadow: 0 0 15px rgba(0,255,255,0.3);
-            min-width: 100px;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0,255,255,0.4);
+            min-width: 120px;
         }
         
         .direction-arrow {
-            font-size: 24px;
+            font-size: 28px;
             display: inline-block;
-            margin-right: 8px;
+            margin-right: 10px;
             vertical-align: middle;
         }
         
         .direction-text {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
             letter-spacing: 1px;
@@ -181,13 +161,13 @@
         }
         
         .distance-small {
-            font-size: 10px;
-            margin-top: 3px;
+            font-size: 11px;
+            margin-top: 5px;
             color: #0ff;
             text-align: center;
         }
         
-        /* BOTTOM CONTROL BUTTONS - Original style */
+        /* BOTTOM CONTROL BUTTONS */
         .control-bar {
             position: fixed;
             bottom: 20px;
@@ -242,9 +222,9 @@
             transform: translateX(-50%);
             background: rgba(255, 0, 0, 0.9);
             backdrop-filter: blur(8px);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 30px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: white;
             z-index: 10;
@@ -254,8 +234,8 @@
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 0.9; }
-            50% { opacity: 0.6; }
+            0%, 100% { opacity: 0.9; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateX(-50%) scale(1.02); }
         }
         
         /* Voice indicator */
@@ -265,27 +245,29 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0,0,0,0.9);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 16px;
             z-index: 20;
             display: none;
             pointer-events: none;
             white-space: nowrap;
             border: 2px solid #0ff;
+            font-weight: bold;
         }
         
         @media (max-width: 600px) {
-            .direction-hint { padding: 6px 12px; min-width: 85px; top: 80px; left: 10px; }
-            .direction-arrow { font-size: 20px; margin-right: 5px; }
-            .direction-text { font-size: 12px; }
+            .direction-hint { padding: 8px 12px; min-width: 100px; top: 80px; left: 10px; }
+            .direction-arrow { font-size: 22px; margin-right: 6px; }
+            .direction-text { font-size: 14px; }
             .distance-small { font-size: 9px; }
             .location-text, .location-value, .shelter-label, .shelter-name, .shelter-distance { font-size: 9px; }
             .top-status-bar { padding: 8px 10px; }
             .ai-status-badge { top: 72px; right: 8px; font-size: 9px; padding: 3px 8px; }
             button { padding: 8px 12px; font-size: 11px; }
             .control-bar { padding: 8px 12px; gap: 8px; }
-            .hazard-badge { font-size: 10px; bottom: 90px; }
+            .hazard-badge { font-size: 10px; bottom: 90px; padding: 5px 12px; }
+            .voice-indicator { font-size: 13px; padding: 8px 18px; }
         }
     </style>
 </head>
@@ -295,9 +277,6 @@
 <div id="camera-container">
     <video id="video" autoplay playsinline muted></video>
 </div>
-
-<!-- AR Canvas -->
-<canvas id="ar-canvas"></canvas>
 
 <!-- TOP STATUS BAR - Location & Nearest Shelter -->
 <div class="top-status-bar">
@@ -317,17 +296,19 @@
     🟢 AI READY
 </div>
 
-<!-- DIRECTION HINT - TOP LEFT CORNER (Does not block view) -->
+<!-- DIRECTION HINT - TOP LEFT CORNER (Only guidance, NO ARROW OVERLAY) -->
 <div id="directionHint" class="direction-hint" style="display: none;">
-    <span class="direction-arrow" id="directionArrow">⬆️</span>
-    <span class="direction-text" id="directionText">AHEAD</span>
+    <div>
+        <span class="direction-arrow" id="directionArrow">⬆️</span>
+        <span class="direction-text" id="directionText">AHEAD</span>
+    </div>
     <div class="distance-small" id="distanceSmall">--m</div>
 </div>
 
 <!-- Hazard Alert -->
 <div id="hazardBadge" class="hazard-badge" style="display: none;"></div>
 
-<!-- Bottom Control Buttons - Original Style -->
+<!-- Bottom Control Buttons -->
 <div class="control-bar">
     <button id="startBtn" class="btn-start">🚀 START AUTONOMOUS MODE</button>
     <button id="sosBtn" class="btn-sos">🆘 SOS</button>
@@ -337,11 +318,8 @@
 <!-- Voice Indicator -->
 <div id="voiceIndicator" class="voice-indicator">🎤 Listening...</div>
 
-<script type="module">
-    import * as THREE from 'three';
-    
+<script>
     // ---------------------------- GLOBALS ----------------------------
-    let scene, arCamera, renderer, arrowGroup, arrowMesh;
     let deviceOrientation = { alpha: 0 };
     let userLocation = { lat: null, lng: null };
     let emergencyServices = [];
@@ -431,17 +409,16 @@
         
         directionArrow.innerHTML = direction.arrow;
         directionText.innerHTML = direction.text;
-        distanceSmall.innerHTML = `${currentTarget.distance.toFixed(0)}m`;
+        distanceSmall.innerHTML = `${currentTarget.distance.toFixed(0)}m to safety`;
         directionHint.style.borderColor = direction.color;
         directionHint.style.display = 'block';
         
         // Update shelter distance in top bar
         shelterDistance.innerHTML = `${currentTarget.distance.toFixed(0)}m`;
         
-        // Color code distance in top bar
+        // Color code distance
         if (currentTarget.distance < 100) {
             shelterDistance.style.color = '#ff4444';
-            directionHint.style.backgroundColor = 'rgba(0,0,0,0.85)';
         } else if (currentTarget.distance < 300) {
             shelterDistance.style.color = '#ffaa33';
         } else {
@@ -454,11 +431,11 @@
         addLog("Loading AI model...");
         try {
             aiModel = await cocoSsd.load();
-            addLog("AI ready");
+            addLog("AI ready - detecting fire, people");
             aiStatusBadge.innerHTML = "🟢 AI ACTIVE";
             startCamera();
         } catch(e) {
-            addLog("AI failed");
+            addLog("AI failed: " + e.message);
             aiStatusBadge.innerHTML = "⚠️ AI LIMITED";
         }
     }
@@ -474,7 +451,7 @@
             addLog("Camera active");
             startDetectionLoop();
         } catch(e) {
-            addLog("Camera denied");
+            addLog("Camera access denied");
         }
     }
     
@@ -575,90 +552,19 @@
         if (emergencyServices.length > 0 && !currentTarget) {
             currentTarget = emergencyServices[0];
             addLog(`Target: ${currentTarget.name}`);
-            speak(`Guiding to ${currentTarget.name}`);
+            speak(`Guiding to ${currentTarget.name}, ${currentTarget.distance.toFixed(0)} meters away`);
         }
         
         if (currentTarget && userLocation.lat) {
             currentTarget.distance = calculateDistance(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
             updateDirectionHint();
-            updateArrowDirection();
             
             if (currentTarget.distance < 50) {
                 aiStatusBadge.innerHTML = "✅ SAFE ZONE";
-                speak("You have reached a safe zone");
+                speak("You have reached a safe zone. Stay safe!");
                 isAutoMode = false;
+                directionHint.style.display = 'none';
             }
-        }
-    }
-    
-    // ---------------------------- AR NAVIGATION ----------------------------
-    function initAR() {
-        const canvas = document.getElementById('ar-canvas');
-        scene = new THREE.Scene();
-        scene.background = null;
-        
-        arCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        arCamera.position.set(0, 0, 5);
-        
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000000, 0);
-        
-        arrowGroup = new THREE.Group();
-        
-        const coneGeo = new THREE.ConeGeometry(0.55, 1.6, 32);
-        const material = new THREE.MeshStandardMaterial({ 
-            color: 0x00ffff, 
-            emissive: 0x0088aa,
-            emissiveIntensity: 0.7,
-            metalness: 0.9
-        });
-        arrowMesh = new THREE.Mesh(coneGeo, material);
-        arrowMesh.position.y = 0.8;
-        
-        const cylinderGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.0, 8);
-        const stem = new THREE.Mesh(cylinderGeo, material);
-        stem.position.y = 0;
-        
-        arrowGroup.add(arrowMesh);
-        arrowGroup.add(stem);
-        arrowGroup.position.z = -2.0;
-        arrowGroup.position.y = -0.2;
-        
-        scene.add(arrowGroup);
-        
-        const ambientLight = new THREE.AmbientLight(0x404060);
-        scene.add(ambientLight);
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-        dirLight.position.set(1, 2, 1);
-        scene.add(dirLight);
-        
-        animate();
-    }
-    
-    function animate() {
-        requestAnimationFrame(animate);
-        if (arrowGroup) {
-            const scale = 1 + Math.sin(Date.now() * 0.012) * 0.08;
-            arrowGroup.scale.set(scale, scale, scale);
-        }
-        if (renderer) renderer.render(scene, arCamera);
-    }
-    
-    function updateArrowDirection() {
-        if (!arrowGroup || !currentTarget || !userLocation.lat) return;
-        
-        const bearing = calculateBearing(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
-        const headingRad = (deviceOrientation.alpha || 0) * Math.PI / 180;
-        let relativeAngle = (bearing * Math.PI/180) - headingRad;
-        arrowGroup.rotation.y = -relativeAngle;
-        
-        if (currentTarget.distance < 100) {
-            arrowMesh.material.color.setHex(0xff3333);
-        } else if (currentTarget.distance < 300) {
-            arrowMesh.material.color.setHex(0xffaa33);
-        } else {
-            arrowMesh.material.color.setHex(0x33ff33);
         }
     }
     
@@ -676,15 +582,17 @@
                     }
                     if (currentTarget) {
                         currentTarget.distance = calculateDistance(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
-                        updateArrowDirection();
                         updateDirectionHint();
                     }
                 },
-                () => { 
+                (error) => { 
                     locationDisplay.innerHTML = "Waiting for GPS...";
+                    addLog("GPS error: " + error.message);
                 },
                 { enableHighAccuracy: true }
             );
+        } else {
+            locationDisplay.innerHTML = "GPS not supported";
         }
     }
     
@@ -729,26 +637,33 @@
             
             if (cmd.includes("help") || cmd.includes("sos")) {
                 triggerSOS();
-            } else if (cmd.includes("where is safe")) {
+            } else if (cmd.includes("where is safe") || cmd.includes("location")) {
                 if (currentTarget) {
-                    speak(`Safe zone is ${currentTarget.name}, ${currentTarget.distance.toFixed(0)} meters away`);
+                    speak(`Safe zone is ${currentTarget.name}, ${currentTarget.distance.toFixed(0)} meters away. Follow the direction guide.`);
+                } else {
+                    speak("Searching for nearby emergency services");
                 }
-            } else if (cmd.includes("stop")) {
+            } else if (cmd.includes("stop") || cmd.includes("pause")) {
                 isAutoMode = false;
                 aiStatusBadge.innerHTML = "⏸️ PAUSED";
                 speak("Autonomous mode stopped");
-            } else if (cmd.includes("start") || cmd.includes("resume")) {
+            } else if (cmd.includes("start") || cmd.includes("resume") || cmd.includes("activate")) {
                 startAutonomousMode();
             }
+        };
+        
+        speechRecognition.onerror = () => {
+            voiceIndicator.style.display = 'none';
         };
     }
     
     function triggerSOS() {
         if (userLocation.lat && userLocation.lng) {
             const mapsUrl = `https://maps.google.com/?q=${userLocation.lat},${userLocation.lng}`;
-            window.location.href = `sms:112?body=🚨 RESCUE AI SOS! Emergency assistance needed. Location: ${mapsUrl}`;
+            const message = `🚨 RESCUE AI SOS! Emergency assistance needed. My location: ${mapsUrl}`;
+            window.location.href = `sms:112?body=${encodeURIComponent(message)}`;
             addLog("SOS Triggered!");
-            speak("SOS triggered. Location shared.");
+            speak("SOS triggered. Your location has been shared.");
         } else {
             alert("Waiting for GPS... Please allow location access.");
         }
@@ -757,8 +672,9 @@
     function startAutonomousMode() {
         if (aiInterval) clearInterval(aiInterval);
         isAutoMode = true;
+        currentTarget = null;
         
-        addLog("AUTONOMOUS MODE ACTIVATED");
+        addLog("🚀 AUTONOMOUS MODE ACTIVATED");
         aiStatusBadge.innerHTML = "🧭 GUIDING";
         
         if (userLocation.lat && emergencyServices.length === 0) {
@@ -768,26 +684,17 @@
         aiInterval = setInterval(() => aiDecisionCycle(), 3000);
         aiDecisionCycle();
         
-        speak("Autonomous mode activated. Follow the arrow to safety.");
+        speak("Autonomous mode activated. Look at the top left for direction guidance.");
     }
     
-    // ---------------------------- INITIALIZATION ----------------------------
+    // ---------------------------- DEVICE ORIENTATION ----------------------------
     window.addEventListener('deviceorientation', (e) => {
         deviceOrientation.alpha = e.alpha;
-        updateArrowDirection();
         updateDirectionHint();
     });
     
-    window.addEventListener('resize', () => {
-        if (renderer) {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            arCamera.aspect = window.innerWidth / window.innerHeight;
-            arCamera.updateProjectionMatrix();
-        }
-    });
-    
+    // ---------------------------- INITIALIZATION ----------------------------
     window.onload = () => {
-        initAR();
         startGPS();
         initVoiceCommands();
         initAIModel();
@@ -795,7 +702,9 @@
         document.getElementById('startBtn').addEventListener('click', startAutonomousMode);
         document.getElementById('sosBtn').addEventListener('click', triggerSOS);
         
-        addLog("Rescue AI Ready - Clear Navigation");
+        addLog("✅ Rescue AI Ready - Clear Navigation (No Arrow Overlay)");
+        addLog("📺 Direction guidance appears in TOP-LEFT corner");
+        addLog("🎤 Voice commands: 'Help', 'Where is safe', 'Stop', 'Start'");
     };
 </script>
 </body>

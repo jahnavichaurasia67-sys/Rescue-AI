@@ -33,7 +33,7 @@
             background: #000;
         }
         
-        /* Camera Container - Full screen, no overlays interfering */
+        /* Camera Container - Full screen */
         #camera-container {
             position: fixed;
             top: 0;
@@ -53,7 +53,7 @@
             left: 0;
         }
         
-        /* AR Canvas - Transparent overlay for arrow only */
+        /* AR Canvas - Transparent overlay for arrow ONLY - no black lines */
         canvas#ar-canvas {
             position: fixed;
             top: 0;
@@ -64,7 +64,7 @@
             pointer-events: none;
         }
         
-        /* Main UI Overlay - Clear, readable, no black lines on face */
+        /* Main UI Overlay */
         .ui-overlay {
             position: fixed;
             top: 0;
@@ -74,9 +74,9 @@
             pointer-events: none;
         }
         
-        /* Status Panel - Large, readable, semi-transparent */
+        /* Status Panel */
         .status-panel {
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(15px);
             margin: 16px;
             padding: 16px;
@@ -87,11 +87,10 @@
         }
         
         .status-text {
-            font-size: 16px;
+            font-size: 15px;
             margin: 8px 0;
             color: #fff;
             font-weight: 500;
-            letter-spacing: 0.5px;
         }
         
         .status-text strong {
@@ -107,19 +106,18 @@
             border-radius: 24px;
             border: 1px solid rgba(0, 255, 255, 0.3);
             pointer-events: auto;
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
         }
         
         .panel-title {
             color: #00ffff;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 10px;
             font-weight: bold;
-            letter-spacing: 1px;
         }
         
-        /* Control Panel - Bottom, large buttons */
+        /* Control Panel */
         .control-panel {
             position: fixed;
             bottom: 20px;
@@ -132,7 +130,6 @@
             z-index: 10;
             pointer-events: auto;
             border: 1px solid rgba(0, 255, 255, 0.4);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         
         .button-row {
@@ -144,18 +141,16 @@
         
         button {
             flex: 1;
-            min-width: 120px;
+            min-width: 110px;
             padding: 14px 20px;
             border: none;
             border-radius: 60px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s;
             pointer-events: auto;
-            font-family: inherit;
-            letter-spacing: 0.5px;
         }
         
         button:active {
@@ -164,37 +159,32 @@
         
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
         .btn-sos {
             background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
         }
         
         .btn-voice {
             background: linear-gradient(135deg, #11998e, #38ef7d);
-            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
         }
         
-        /* Hazard Alert - Prominent */
+        /* Hazard Alert */
         .hazard-tag {
             display: inline-block;
             background: linear-gradient(135deg, #ff0000, #cc0000);
             color: white;
             padding: 8px 16px;
             border-radius: 40px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             margin: 5px 0;
             animation: pulse 1s infinite;
-            box-shadow: 0 0 15px rgba(255,0,0,0.5);
         }
         
         .safe-tag {
             background: linear-gradient(135deg, #00cc44, #009933);
             animation: none;
-            box-shadow: 0 0 10px rgba(0,204,68,0.5);
         }
         
         @keyframes pulse {
@@ -204,79 +194,67 @@
         
         /* AI Log Entries */
         .ai-log-entry {
-            font-size: 13px;
+            font-size: 12px;
             font-family: 'Courier New', monospace;
-            padding: 6px 0;
+            padding: 5px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             color: #0f0;
-            line-height: 1.4;
         }
         
-        .ai-warning {
-            color: #ff6b6b;
-        }
+        .ai-warning { color: #ff6b6b; }
+        .ai-success { color: #51cf66; }
+        .ai-danger { color: #ff4444; font-weight: bold; }
         
-        .ai-success {
-            color: #51cf66;
-        }
-        
-        .ai-danger {
-            color: #ff4444;
-            font-weight: bold;
-        }
-        
-        /* Distance Indicator - Large and clear */
+        /* Distance Indicator - LARGE and CLEAR */
         .distance-indicator {
             position: fixed;
             bottom: 110px;
             left: 16px;
             right: 16px;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px);
-            padding: 14px 18px;
-            border-radius: 20px;
+            padding: 16px 20px;
+            border-radius: 60px;
             text-align: center;
             font-size: 18px;
             font-weight: bold;
             z-index: 10;
             pointer-events: none;
-            font-family: inherit;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(0, 255, 255, 0.5);
         }
         
-        /* Scrollbar Styling */
-        .ai-decision-panel::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .ai-decision-panel::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            border-radius: 4px;
-        }
-        
-        .ai-decision-panel::-webkit-scrollbar-thumb {
-            background: #00ffff;
-            border-radius: 4px;
-        }
-        
-        /* Goal Highlight */
-        #aiGoal {
-            color: #00ffff;
+        /* Direction Hint - Shows which way to turn */
+        .direction-hint {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            padding: 20px 30px;
+            border-radius: 80px;
+            font-size: 28px;
             font-weight: bold;
-            font-size: 18px;
-            background: rgba(0,255,255,0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-block;
+            z-index: 15;
+            pointer-events: none;
+            text-align: center;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+            white-space: nowrap;
+        }
+        
+        .direction-arrow {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 10px;
         }
         
         @media (max-width: 600px) {
-            .status-text { font-size: 14px; }
-            button { padding: 12px 16px; font-size: 14px; min-width: 100px; }
-            .distance-indicator { font-size: 15px; bottom: 105px; }
-            .panel-title { font-size: 12px; }
-            .ai-log-entry { font-size: 11px; }
-            .hazard-tag { font-size: 14px; padding: 6px 12px; }
+            .status-text { font-size: 13px; }
+            button { padding: 12px 14px; font-size: 13px; min-width: 90px; }
+            .distance-indicator { font-size: 15px; padding: 12px 16px; bottom: 100px; }
+            .direction-hint { padding: 15px 25px; font-size: 22px; }
+            .direction-arrow { font-size: 38px; }
         }
     </style>
 </head>
@@ -287,13 +265,19 @@
     <video id="video" autoplay playsinline muted></video>
 </div>
 
-<!-- AR Canvas - Arrow only, no black lines -->
+<!-- AR Canvas -->
 <canvas id="ar-canvas"></canvas>
+
+<!-- Direction Hint - Shows clearly which way to go -->
+<div id="directionHint" class="direction-hint" style="display: none;">
+    <div class="direction-arrow" id="directionArrow">⬆️</div>
+    <div id="directionText">AHEAD</div>
+</div>
 
 <!-- UI Overlay -->
 <div class="ui-overlay">
     <div class="status-panel">
-        <div class="status-text">🧠 <strong>RESCUE AI</strong> | Status: <span id="aiStatus" style="color:#00ff00;">Initializing...</span></div>
+        <div class="status-text">🧠 <strong>RESCUE AI</strong> | Status: <span id="aiStatus">Initializing...</span></div>
         <div class="status-text">📍 <strong>Location:</strong> <span id="locationStatus">Waiting for GPS...</span></div>
         <div class="status-text">🎯 <strong>AI Goal:</strong> <span id="aiGoal">Analyzing Environment</span></div>
         <div class="status-text">📡 <strong>Nearest Safety:</strong> <span id="nearestSafety">Searching...</span></div>
@@ -303,7 +287,7 @@
     <div class="ai-decision-panel">
         <div class="panel-title">🧠 AI DECISION LOG</div>
         <div id="aiLog">
-            <div class="ai-log-entry">[System] Rescue AI v6.0 - Autonomous Disaster Response</div>
+            <div class="ai-log-entry">[System] Rescue AI v7.0 - Enhanced Arrow Visibility</div>
             <div class="ai-log-entry">[System] Loading AI models...</div>
         </div>
     </div>
@@ -315,7 +299,7 @@
 
 <div class="control-panel">
     <div class="button-row">
-        <button id="startBtn" class="btn-primary">🚀 START AUTONOMOUS MODE</button>
+        <button id="startBtn" class="btn-primary">🚀 START</button>
         <button id="sosBtn" class="btn-sos">🆘 SOS</button>
         <button id="voiceBtn" class="btn-voice">🎤 VOICE</button>
     </div>
@@ -325,7 +309,7 @@
     import * as THREE from 'three';
     
     // ---------------------------- GLOBALS ----------------------------
-    let scene, arCamera, renderer, arrowGroup, arrowMesh, particles;
+    let scene, arCamera, renderer, arrowGroup, arrowMesh;
     let deviceOrientation = { alpha: 0, beta: 0, gamma: 0 };
     let userLocation = { lat: null, lng: null };
     let emergencyServices = [];
@@ -347,6 +331,9 @@
     const hazardAlertSpan = document.getElementById('hazardAlert');
     const aiLogDiv = document.getElementById('aiLog');
     const distanceIndicator = document.getElementById('distanceIndicator');
+    const directionHint = document.getElementById('directionHint');
+    const directionArrow = document.getElementById('directionArrow');
+    const directionText = document.getElementById('directionText');
     
     // ---------------------------- HELPER FUNCTIONS ----------------------------
     function addLog(msg, type = 'info') {
@@ -369,8 +356,6 @@
         while (aiLogDiv.children.length > 35) {
             aiLogDiv.removeChild(aiLogDiv.firstChild);
         }
-        
-        console.log(msg);
     }
     
     function speak(text) {
@@ -378,7 +363,6 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = 0.9;
             utterance.pitch = 1.0;
-            utterance.volume = 1;
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(utterance);
         }
@@ -403,16 +387,67 @@
         return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
     }
     
-    // ---------------------------- AI HAZARD DETECTION (Camera) ----------------------------
+    // Get cardinal direction from bearing difference
+    function getDirectionFromBearingDiff(bearingDiff) {
+        // bearingDiff is relative angle (-180 to 180)
+        const absDiff = Math.abs(bearingDiff);
+        
+        if (absDiff < 15) {
+            return { arrow: "⬆️", text: "AHEAD", color: "#33ff33" };
+        } else if (absDiff < 45) {
+            if (bearingDiff > 0) return { arrow: "↗️", text: "TURN RIGHT", color: "#ffaa33" };
+            else return { arrow: "↖️", text: "TURN LEFT", color: "#ffaa33" };
+        } else if (absDiff < 90) {
+            if (bearingDiff > 0) return { arrow: "➡️", text: "SHARP RIGHT", color: "#ff6633" };
+            else return { arrow: "⬅️", text: "SHARP LEFT", color: "#ff6633" };
+        } else {
+            if (bearingDiff > 0) return { arrow: "🔽", text: "TURN AROUND", color: "#ff3333" };
+            else return { arrow: "🔽", text: "TURN AROUND", color: "#ff3333" };
+        }
+    }
+    
+    // Update direction hint display (CLEAR VISUAL GUIDE)
+    function updateDirectionHint() {
+        if (!currentTarget || !userLocation.lat || !isAutoMode) {
+            directionHint.style.display = 'none';
+            return;
+        }
+        
+        const bearing = calculateBearing(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
+        const heading = deviceOrientation.alpha || 0;
+        let bearingDiff = bearing - heading;
+        
+        // Normalize to -180 to 180
+        if (bearingDiff > 180) bearingDiff -= 360;
+        if (bearingDiff < -180) bearingDiff += 360;
+        
+        const direction = getDirectionFromBearingDiff(bearingDiff);
+        
+        directionArrow.innerHTML = direction.arrow;
+        directionText.innerHTML = direction.text;
+        directionHint.style.borderColor = direction.color;
+        directionHint.style.display = 'block';
+        
+        // Auto-hide direction hint after 3 seconds of being on target
+        if (Math.abs(bearingDiff) < 10) {
+            setTimeout(() => {
+                if (Math.abs(bearingDiff) < 10) {
+                    // Keep visible but fade
+                }
+            }, 3000);
+        }
+    }
+    
+    // ---------------------------- AI HAZARD DETECTION ----------------------------
     async function initAIModel() {
-        addLog("Loading AI disaster detection model (COCO-SSD)...", 'info');
+        addLog("Loading AI disaster detection model...", 'info');
         try {
             aiModel = await cocoSsd.load();
-            addLog("✅ AI model ready! Camera will detect: Fire, People, Obstacles", 'success');
+            addLog("✅ AI model ready! Detecting: Fire, People, Obstacles", 'success');
             aiStatusSpan.innerHTML = "🟢 AI Active";
             startCamera();
         } catch(e) {
-            addLog("❌ AI model failed to load: " + e.message, 'warning');
+            addLog("❌ AI model failed: " + e.message, 'warning');
             aiStatusSpan.innerHTML = "⚠️ AI Limited";
         }
     }
@@ -425,10 +460,10 @@
             videoElement = document.getElementById('video');
             videoElement.srcObject = stream;
             videoElement.play();
-            addLog("📷 Camera active - AI analyzing feed for disasters", 'success');
+            addLog("📷 Camera active - scanning for disasters", 'success');
             startDetectionLoop();
         } catch(e) {
-            addLog("❌ Camera access denied. AR navigation only.", 'warning');
+            addLog("❌ Camera access denied", 'warning');
         }
     }
     
@@ -438,12 +473,10 @@
                 requestAnimationFrame(detect);
                 return;
             }
-            
             try {
                 const predictions = await aiModel.detect(videoElement);
                 analyzeDisasters(predictions);
             } catch(e) {}
-            
             requestAnimationFrame(detect);
         }
         detect();
@@ -454,23 +487,14 @@
         
         for (let pred of predictions) {
             if (pred.score > 0.65) {
-                let hazardType = null;
-                
                 if (pred.class === "fire" || pred.class === "fire hydrant") {
-                    hazardType = { name: "🔥 FIRE", priority: 1, message: "FIRE DETECTED! Evacuate immediately!" };
+                    newHazards.push({ name: "🔥 FIRE", priority: 1, message: "FIRE DETECTED! Evacuate immediately!" });
                 } 
                 else if (pred.class === "person") {
-                    hazardType = { name: "👤 PERSON/VICTIM", priority: 2, message: "Person detected nearby. Offer assistance if safe." };
+                    newHazards.push({ name: "👤 PERSON/VICTIM", priority: 2, message: "Person detected nearby." });
                 }
-                else if (pred.class === "chair" || pred.class === "couch" || pred.class === "dining table" || pred.class === "bench") {
-                    hazardType = { name: "🪑 OBSTACLE", priority: 2, message: "Obstacle ahead. Navigate carefully." };
-                }
-                else if (pred.class === "bottle" || pred.class === "cup" || pred.class === "suitcase") {
-                    hazardType = { name: "💧 DEBRIS", priority: 2, message: "Debris detected. Watch your step." };
-                }
-                
-                if (hazardType) {
-                    newHazards.push(hazardType);
+                else if (pred.class === "chair" || pred.class === "couch" || pred.class === "dining table") {
+                    newHazards.push({ name: "🪑 OBSTACLE", priority: 2, message: "Obstacle ahead. Navigate carefully." });
                 }
             }
         }
@@ -479,7 +503,7 @@
         
         if (detectedHazards.length > 0) {
             const topHazard = detectedHazards[0];
-            hazardAlertSpan.innerHTML = `<span class="hazard-tag">⚠️ ${topHazard.name} DETECTED ⚠️</span>`;
+            hazardAlertSpan.innerHTML = `<span class="hazard-tag">⚠️ ${topHazard.name} ⚠️</span>`;
             
             if (topHazard.priority === 1 && isAutoMode) {
                 const now = Date.now();
@@ -490,11 +514,11 @@
                 }
             }
         } else {
-            hazardAlertSpan.innerHTML = '<span class="hazard-tag safe-tag">✅ No immediate threats detected</span>';
+            hazardAlertSpan.innerHTML = '<span class="hazard-tag safe-tag">✅ No threats detected</span>';
         }
     }
     
-    // ---------------------------- AI DECISION ENGINE ----------------------------
+    // ---------------------------- EMERGENCY SERVICES ----------------------------
     async function fetchEmergencyServices(lat, lng) {
         addLog("📡 Scanning for nearby emergency services...", 'info');
         const radius = 3000;
@@ -509,13 +533,7 @@
                 if (elem.lat && elem.lon) {
                     const dist = calculateDistance(lat, lng, elem.lat, elem.lon);
                     let name = elem.tags?.name || elem.tags?.amenity || "Emergency Point";
-                    services.push({
-                        lat: elem.lat,
-                        lng: elem.lon,
-                        name: name,
-                        type: elem.tags?.amenity,
-                        distance: dist
-                    });
+                    services.push({ lat: elem.lat, lng: elem.lon, name: name, distance: dist });
                 }
             }
             
@@ -525,14 +543,14 @@
                 addLog(`✅ Found ${emergencyServices.length} emergency services`, 'success');
                 nearestSafetySpan.innerHTML = `${emergencyServices[0].name} (${emergencyServices[0].distance.toFixed(0)}m)`;
             } else {
-                addLog("⚠️ No emergency services found in 3km radius", 'warning');
-                nearestSafetySpan.innerHTML = "None found - call emergency services";
+                addLog("⚠️ No emergency services found", 'warning');
             }
         } catch(e) {
-            addLog("❌ Failed to fetch services: " + e.message, 'warning');
+            addLog("❌ Failed to fetch services", 'warning');
         }
     }
     
+    // ---------------------------- AI DECISION CYCLE ----------------------------
     async function aiDecisionCycle() {
         if (!isAutoMode) return;
         if (!userLocation.lat) return;
@@ -543,73 +561,56 @@
         if (hasFire) {
             currentGoal = "EVACUATE IMMEDIATELY";
             aiStatusSpan.innerHTML = "🔥 EVACUATE NOW";
-            aiStatusSpan.style.color = "#ff4444";
-            speak("Fire detected! Evacuate immediately. Follow the arrow.");
-            addLog("🔥 HIGH PRIORITY: Fire hazard detected - evacuating now!", 'danger');
-            
-            if (emergencyServices.length > 0) {
-                currentTarget = emergencyServices[0];
-            }
+            speak("Fire detected! Evacuate immediately!");
+            if (emergencyServices.length > 0) currentTarget = emergencyServices[0];
         }
         else if (hasPerson && !hasFire) {
             currentGoal = "ASSIST VICTIM";
             aiStatusSpan.innerHTML = "👤 ASSIST MODE";
-            aiStatusSpan.style.color = "#ffaa44";
-            aiGoalSpan.innerHTML = "Help nearby person";
         }
         else if (emergencyServices.length === 0) {
             currentGoal = "FETCHING SERVICES";
-            aiStatusSpan.innerHTML = "🔄 Scanning";
             await fetchEmergencyServices(userLocation.lat, userLocation.lng);
         }
         else if (currentTarget && currentTarget.distance < 50) {
             currentGoal = "SAFETY REACHED";
             aiStatusSpan.innerHTML = "✅ SAFE ZONE";
-            aiStatusSpan.style.color = "#51cf66";
-            speak("You have reached a safe zone. Stay safe.");
-            addLog("🎉 SAFETY REACHED! AI mission complete.", 'success');
-            distanceIndicator.innerHTML = "✅ SAFETY REACHED! You are in a safe area.";
+            speak("You have reached a safe zone.");
+            distanceIndicator.innerHTML = "✅ SAFETY REACHED! You are safe.";
         }
         else {
             currentGoal = "GUIDING TO SAFETY";
             aiStatusSpan.innerHTML = "🧭 GUIDING";
-            aiStatusSpan.style.color = "#00ffff";
         }
         
-        if (currentGoal === "GUIDING TO SAFETY" && emergencyServices.length > 0 && !currentTarget) {
+        if ((currentGoal === "GUIDING TO SAFETY" || currentGoal === "EVACUATE IMMEDIATELY") && emergencyServices.length > 0 && !currentTarget) {
             currentTarget = emergencyServices[0];
-            addLog(`🎯 AI selected: ${currentTarget.name} (${currentTarget.distance.toFixed(0)}m away)`, 'success');
+            addLog(`🎯 AI selected: ${currentTarget.name} (${currentTarget.distance.toFixed(0)}m)`, 'success');
             speak(`Navigating to ${currentTarget.name}. ${currentTarget.distance.toFixed(0)} meters away.`);
         }
         
         if (currentTarget && userLocation.lat) {
-            currentTarget.distance = calculateDistance(
-                userLocation.lat, userLocation.lng,
-                currentTarget.lat, currentTarget.lng
-            );
-            
+            currentTarget.distance = calculateDistance(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
             aiGoalSpan.innerHTML = currentGoal;
             nearestSafetySpan.innerHTML = `${currentTarget.name} (${currentTarget.distance.toFixed(0)}m)`;
             
             if (currentTarget.distance < 100) {
-                distanceIndicator.innerHTML = `🔴 CRITICAL: ${currentTarget.distance.toFixed(0)}m to ${currentTarget.name}! Turn carefully!`;
-                distanceIndicator.style.background = 'rgba(255,0,0,0.9)';
-                distanceIndicator.style.color = '#fff';
+                distanceIndicator.innerHTML = `🔴 CRITICAL: ${currentTarget.distance.toFixed(0)}m to ${currentTarget.name}!`;
+                distanceIndicator.style.borderColor = "#ff3333";
             } else if (currentTarget.distance < 300) {
-                distanceIndicator.innerHTML = `🟠 GETTING CLOSE: ${currentTarget.distance.toFixed(0)}m to safety - Continue following arrow`;
-                distanceIndicator.style.background = 'rgba(255,165,0,0.9)';
-                distanceIndicator.style.color = '#fff';
+                distanceIndicator.innerHTML = `🟠 GETTING CLOSE: ${currentTarget.distance.toFixed(0)}m to safety`;
+                distanceIndicator.style.borderColor = "#ffaa33";
             } else {
                 distanceIndicator.innerHTML = `🟢 FOLLOW ARROW: ${currentTarget.distance.toFixed(0)}m to ${currentTarget.name}`;
-                distanceIndicator.style.background = 'rgba(0,0,0,0.85)';
-                distanceIndicator.style.color = '#fff';
+                distanceIndicator.style.borderColor = "#33ff33";
             }
             
             updateArrowDirection();
+            updateDirectionHint();
         }
     }
     
-    // ---------------------------- AR NAVIGATION (Three.js - Clean, No Black Lines) ----------------------------
+    // ---------------------------- AR NAVIGATION - ENHANCED VISIBLE ARROW ----------------------------
     function initAR() {
         const canvas = document.getElementById('ar-canvas');
         scene = new THREE.Scene();
@@ -622,66 +623,71 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(0x000000, 0);
         
-        // Create Arrow - Clear, bright, no black edges
+        // Create LARGE, BRIGHT Arrow Group
         arrowGroup = new THREE.Group();
         
-        // Main arrow body with glow effect
-        const coneGeo = new THREE.ConeGeometry(0.45, 1.3, 32);
+        // Main arrow body - BIGGER
+        const coneGeo = new THREE.ConeGeometry(0.6, 1.8, 32);
         const material = new THREE.MeshStandardMaterial({ 
             color: 0x00ffff, 
-            emissive: 0x0088aa,
-            emissiveIntensity: 0.6,
-            metalness: 0.8,
-            roughness: 0.2
+            emissive: 0x00aaff,
+            emissiveIntensity: 0.8,
+            metalness: 0.9,
+            roughness: 0.1
         });
         arrowMesh = new THREE.Mesh(coneGeo, material);
-        arrowMesh.position.y = 0.65;
+        arrowMesh.position.y = 0.9;
         
-        const cylinderGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.9, 8);
+        const cylinderGeo = new THREE.CylinderGeometry(0.15, 0.15, 1.2, 12);
         const stem = new THREE.Mesh(cylinderGeo, material);
         stem.position.y = 0;
         
+        // Add a glowing ring around arrow
+        const ringGeo = new THREE.TorusGeometry(0.5, 0.05, 32, 100);
+        const ringMat = new THREE.MeshStandardMaterial({ color: 0x44ffff, emissive: 0x44ffff, emissiveIntensity: 0.5 });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        ring.position.y = 0.3;
+        ring.rotation.x = Math.PI / 2;
+        
         arrowGroup.add(arrowMesh);
         arrowGroup.add(stem);
-        arrowGroup.position.z = -1.8;
-        arrowGroup.position.y = -0.3;
+        arrowGroup.add(ring);
+        arrowGroup.position.z = -2.2;
+        arrowGroup.position.y = -0.2;
         arrowGroup.position.x = 0;
         
         scene.add(arrowGroup);
         
-        // Floating particles around arrow - for better visibility
-        const particleCount = 150;
+        // Add floating particles for visibility
+        const particleCount = 200;
         const particleGeo = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         for (let i = 0; i < particleCount; i++) {
-            positions[i*3] = (Math.random() - 0.5) * 4;
-            positions[i*3+1] = (Math.random() - 0.5) * 3 + 0.5;
-            positions[i*3+2] = (Math.random() - 0.5) * 3 - 1;
+            positions[i*3] = (Math.random() - 0.5) * 5;
+            positions[i*3+1] = (Math.random() - 0.5) * 4 + 0.5;
+            positions[i*3+2] = (Math.random() - 0.5) * 4 - 1;
         }
         particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const particleMat = new THREE.PointsMaterial({ color: 0x44aaff, size: 0.04, transparent: true, opacity: 0.7 });
-        particles = new THREE.Points(particleGeo, particleMat);
+        const particleMat = new THREE.PointsMaterial({ color: 0x44aaff, size: 0.06, transparent: true, opacity: 0.8 });
+        const particles = new THREE.Points(particleGeo, particleMat);
         scene.add(particles);
         
-        // Add ambient light to make arrow pop
+        // Lighting
         const ambientLight = new THREE.AmbientLight(0x404060);
         scene.add(ambientLight);
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
         dirLight.position.set(1, 2, 1);
         scene.add(dirLight);
-        const backLight = new THREE.PointLight(0x00ffff, 0.5);
-        backLight.position.set(0, 0, 2);
-        scene.add(backLight);
         
-        animate();
+        animate(particles);
     }
     
-    function animate() {
-        requestAnimationFrame(animate);
+    function animate(particles) {
+        requestAnimationFrame(() => animate(particles));
         if (arrowGroup && particles) {
-            particles.rotation.y += 0.008;
-            particles.rotation.x += 0.004;
-            const scale = 1 + Math.sin(Date.now() * 0.008) * 0.08;
+            particles.rotation.y += 0.01;
+            particles.rotation.x += 0.005;
+            const scale = 1 + Math.sin(Date.now() * 0.01) * 0.1;
             arrowGroup.scale.set(scale, scale, scale);
         }
         if (renderer) renderer.render(scene, arCamera);
@@ -708,43 +714,36 @@
         }
     }
     
-    // ---------------------------- GPS & LOCATION ----------------------------
+    // ---------------------------- GPS ----------------------------
     function startGPS() {
         if ("geolocation" in navigator) {
             navigator.geolocation.watchPosition(
                 (position) => {
                     userLocation.lat = position.coords.latitude;
                     userLocation.lng = position.coords.longitude;
-                    const accuracy = position.coords.accuracy;
-                    locationStatusSpan.innerHTML = `${userLocation.lat.toFixed(5)}, ${userLocation.lng.toFixed(5)} (±${accuracy.toFixed(0)}m)`;
+                    locationStatusSpan.innerHTML = `${userLocation.lat.toFixed(5)}, ${userLocation.lng.toFixed(5)}`;
                     
                     if (emergencyServices.length === 0 && isAutoMode) {
                         fetchEmergencyServices(userLocation.lat, userLocation.lng);
                     }
                     
                     if (currentTarget) {
-                        currentTarget.distance = calculateDistance(
-                            userLocation.lat, userLocation.lng,
-                            currentTarget.lat, currentTarget.lng
-                        );
+                        currentTarget.distance = calculateDistance(userLocation.lat, userLocation.lng, currentTarget.lat, currentTarget.lng);
                         updateArrowDirection();
                     }
                 },
                 (error) => {
-                    locationStatusSpan.innerHTML = "Permission needed - Enable GPS";
-                    addLog("❌ GPS error: " + error.message, 'warning');
+                    locationStatusSpan.innerHTML = "Enable GPS";
                 },
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 5000 }
+                { enableHighAccuracy: true }
             );
-        } else {
-            locationStatusSpan.innerHTML = "GPS not supported";
         }
     }
     
     // ---------------------------- VOICE COMMANDS ----------------------------
     function initVoiceCommands() {
-        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            addLog("Voice commands not supported in this browser", 'warning');
+        if (!('webkitSpeechRecognition' in window)) {
+            addLog("Voice commands not supported", 'warning');
             return;
         }
         
@@ -754,100 +753,61 @@
         speechRecognition.lang = 'en-US';
         
         const voiceBtn = document.getElementById('voiceBtn');
-        let isListening = false;
         
         voiceBtn.addEventListener('mousedown', () => {
-            try {
-                speechRecognition.start();
-                isListening = true;
-                voiceBtn.style.opacity = '0.7';
-                addLog("🎤 Listening for command...", 'info');
-            } catch(e) {}
+            speechRecognition.start();
+            addLog("🎤 Listening...", 'info');
         });
-        
         voiceBtn.addEventListener('mouseup', () => {
-            try {
-                speechRecognition.stop();
-                isListening = false;
-                voiceBtn.style.opacity = '1';
-            } catch(e) {}
+            speechRecognition.stop();
         });
-        
         voiceBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            try {
-                speechRecognition.start();
-                isListening = true;
-                voiceBtn.style.opacity = '0.7';
-                addLog("🎤 Listening for command...", 'info');
-            } catch(e) {}
+            speechRecognition.start();
         });
-        
         voiceBtn.addEventListener('touchend', (e) => {
             e.preventDefault();
-            try {
-                speechRecognition.stop();
-                isListening = false;
-                voiceBtn.style.opacity = '1';
-            } catch(e) {}
+            speechRecognition.stop();
         });
         
         speechRecognition.onresult = (event) => {
             const cmd = event.results[0][0].transcript.toLowerCase();
-            addLog(`Voice command: "${cmd}"`, 'info');
+            addLog(`Voice: "${cmd}"`, 'info');
             
-            if (cmd.includes("help") || cmd.includes("sos") || cmd.includes("emergency")) {
+            if (cmd.includes("help") || cmd.includes("sos")) {
                 triggerSOS();
-            } else if (cmd.includes("where is safe") || cmd.includes("location") || cmd.includes("guide me")) {
+            } else if (cmd.includes("where is safe")) {
                 if (currentTarget) {
-                    const msg = `Nearest safe zone is ${currentTarget.name}, ${currentTarget.distance.toFixed(0)} meters away. Follow the arrow.`;
-                    speak(msg);
-                    addLog(msg, 'success');
-                } else {
-                    speak("Searching for nearby emergency services");
+                    speak(`Nearest safe zone is ${currentTarget.name}, ${currentTarget.distance.toFixed(0)} meters away`);
                 }
-            } else if (cmd.includes("stop") || cmd.includes("pause")) {
+            } else if (cmd.includes("stop")) {
                 isAutoMode = false;
-                addLog("Autonomous mode paused", 'warning');
-                speak("Autonomous mode paused");
-            } else if (cmd.includes("resume") || cmd.includes("start") || cmd.includes("activate")) {
+                addLog("Auto mode paused", 'warning');
+            } else if (cmd.includes("resume")) {
                 startAutonomousMode();
             }
         };
-        
-        speechRecognition.onerror = (event) => {
-            if (isListening) {
-                addLog("Voice recognition error. Please try again.", 'warning');
-            }
-        };
     }
     
-    // ---------------------------- SOS FUNCTION ----------------------------
     function triggerSOS() {
         if (userLocation.lat && userLocation.lng) {
             const mapsUrl = `https://maps.google.com/?q=${userLocation.lat},${userLocation.lng}`;
-            const message = `🚨 RESCUE AI SOS! Emergency assistance needed immediately. My location: ${mapsUrl}`;
-            window.location.href = `sms:112?body=${encodeURIComponent(message)}`;
-            addLog("🚨 SOS TRIGGERED! Location shared via SMS", 'danger');
-            speak("SOS triggered. Your location has been shared.");
+            window.location.href = `sms:112?body=EMERGENCY SOS! Location: ${mapsUrl}`;
+            addLog("🚨 SOS TRIGGERED!", 'danger');
+            speak("SOS triggered. Location shared.");
         } else {
-            alert("Waiting for GPS... Please allow location access.");
-            addLog("Cannot send SOS - GPS location not available", 'warning');
+            alert("Waiting for GPS...");
         }
     }
     
-    // ---------------------------- START AUTONOMOUS MODE ----------------------------
     function startAutonomousMode() {
         if (aiInterval) clearInterval(aiInterval);
         isAutoMode = true;
-        currentGoal = "INITIALIZING";
         
         addLog("🚀 AUTONOMOUS MODE ACTIVATED", 'success');
-        addLog("🧠 AI is now analyzing camera feed for disasters", 'success');
-        addLog("🎯 AI will automatically guide you to the nearest safety zone", 'success');
+        addLog("🧠 Follow the BRIGHT ARROW and DIRECTION HINT", 'success');
         
         aiStatusSpan.innerHTML = "🟢 AUTONOMOUS ACTIVE";
-        aiStatusSpan.style.color = "#00ff00";
         
         if (userLocation.lat && emergencyServices.length === 0) {
             fetchEmergencyServices(userLocation.lat, userLocation.lng);
@@ -856,16 +816,16 @@
         aiInterval = setInterval(() => aiDecisionCycle(), 3000);
         aiDecisionCycle();
         
-        speak("Rescue AI autonomous mode activated. I will guide you to safety. Follow the arrow.");
+        speak("Autonomous mode activated. Follow the arrow and direction guide on screen.");
     }
     
-    // ---------------------------- DEVICE ORIENTATION ----------------------------
+    // ---------------------------- INITIALIZATION ----------------------------
     window.addEventListener('deviceorientation', (e) => {
         deviceOrientation.alpha = e.alpha;
         updateArrowDirection();
+        updateDirectionHint();
     });
     
-    // Handle window resize
     window.addEventListener('resize', () => {
         if (renderer) {
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -874,7 +834,6 @@
         }
     });
     
-    // ---------------------------- INITIALIZATION ----------------------------
     window.onload = () => {
         initAR();
         startGPS();
@@ -884,10 +843,8 @@
         document.getElementById('startBtn').addEventListener('click', startAutonomousMode);
         document.getElementById('sosBtn').addEventListener('click', triggerSOS);
         
-        addLog("✅ Rescue AI v6.0 Ready - Autonomous Disaster Response System", 'success');
-        addLog("📸 Camera will detect: Fire, People, Obstacles in real-time", 'info');
-        addLog("🎤 Voice commands: 'Help/SOS', 'Where is safe', 'Stop', 'Resume'", 'info');
-        addLog("🧭 AR Arrow will guide you - hold phone level for best results", 'info');
+        addLog("✅ Rescue AI v7.0 Ready", 'success');
+        addLog("📺 CLEAR DIRECTION GUIDE added - Look for the arrow AND text hint", 'success');
     };
 </script>
 </body>

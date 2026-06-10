@@ -103,69 +103,72 @@ Hold the **🎤 VOICE** button and say:
 ---
 
 ## 🗺️ AI Decision Flow
-┌─────────────┐
-│ START │
-└──────┬──────┘
-│
-▼
-┌─────────────┐
-│ Camera │
-│ Scanning │
-│ for Hazards │
-└──────┬──────┘
-│
-▼
-┌─────────────┐
-│ Fire │
-│ Detected? │
-└──────┬──────┘
-│
-┌────────────┴────────────┐
-│ │
-▼ ▼
-┌─────────────┐ ┌─────────────┐
-│ EVACUATE │ │ Person │
-│ IMMEDIATELY │ │ Detected? │
-└─────────────┘ └──────┬──────┘
-│
-┌────────────┴────────────┐
-│ │
-▼ ▼
-┌─────────────┐ ┌─────────────┐
-│ ASSIST │ │ Get │
-│ MODE │ │ GPS Fix │
-└─────────────┘ └──────┬──────┘
-│
-▼
-┌─────────────┐
-│ Find │
-│ Nearest │
-│ Emergency │
-│ Service │
-└──────┬──────┘
-│
-▼
-┌─────────────┐
-│ Show │
-│ Direction │
-│ & Distance │
-└──────┬──────┘
-│
-▼
-┌─────────────┐
-│ Distance │
-│ < 50m? │
-└──────┬──────┘
-│
-┌────────────┴────────────┐
-│ │
-▼ ▼
-┌─────────────┐ ┌─────────────┐
-│ SAFETY │ │ Continue │
-│ REACHED! │ │ Navigation │
-└─────────────┘ └─────────────┘
 
-text
+```text
+┌─────────────┐
+│    START    │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│   Camera    │
+│  Scanning   │
+│ For Hazards │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Fire     │
+│ Detected ?  │
+└──────┬──────┘
+       │
+ ┌─────┴─────┐
+ │           │
+ ▼           ▼
+YES         NO
+ │           │
+ ▼           ▼
+┌─────────┐  ┌─────────────┐
+│EVACUATE │  │   Person    │
+│NOW!     │  │ Detected ?  │
+└─────────┘  └──────┬──────┘
+                    │
+              ┌─────┴─────┐
+              │           │
+              ▼           ▼
+             YES         NO
+              │           │
+              ▼           ▼
+       ┌──────────┐  ┌──────────┐
+       │ ASSIST   │  │ GET GPS  │
+       │  MODE    │  │ LOCATION │
+       └──────────┘  └────┬─────┘
+                           │
+                           ▼
+                  ┌────────────────┐
+                  │ Find Nearest   │
+                  │ Emergency Hub  │
+                  └───────┬────────┘
+                          │
+                          ▼
+                  ┌────────────────┐
+                  │ Show Direction │
+                  │ & Distance     │
+                  └───────┬────────┘
+                          │
+                          ▼
+                  ┌────────────────┐
+                  │ Distance <50m? │
+                  └───────┬────────┘
+                          │
+                   ┌──────┴──────┐
+                   │             │
+                   ▼             ▼
+            ┌───────────┐ ┌───────────┐
+            │  SAFETY   │ │ Continue  │
+            │ REACHED!  │ │Navigation │
+            └───────────┘ └───────────┘
+```
 
 ---
 
@@ -185,119 +188,82 @@ text
 
 ## 🚀 Quick Start
 
-### For Users (No Installation!)
+### For Users
 
-1. Open **Chrome** on your mobile device
-2. Visit your Netlify link
-3. Tap **Allow** for Camera access
-4. Tap **Allow** for Location access
-5. Press **START AUTONOMOUS MODE**
-6. Look at **top-left corner** for direction guidance!
+1. Open Chrome on Android or Safari on iPhone.
+2. Visit the deployed website.
+3. Allow Camera Permission.
+4. Allow Location Permission.
+5. Press **START AUTONOMOUS MODE**.
 
 ### For Developers
 
-```
-# Clone the repository
+```bash
+# Clone Repository
 git clone https://github.com/jahnavichaurasia67-sys/Rescue-AI.git
 
-# Navigate to project
+# Enter Project Folder
 cd Rescue-AI
 
-# Start local server (Python)
+# Run Local Server
 python -m http.server 8000
 
-# OR use Node.js
+# OR
 npx serve .
 
-# Open browser
-open http://localhost:8000
----
-
-## 📂 Project Structure
-text
-Rescue-AI/
-│
-├── index.html          # Complete application (all-in-one)
-└── README.md           # This file
-
-Single-file architecture - Everything in index.html for easy deployment!
-
----
-
-## 🛠️ Technology Stack
-
-| Category | Technology | Purpose |
-|-----------|-----------|-----------|
-| AI/ML | TensorFlow.js + COCO-SSD | Fire, person, obstacle detection |
-| Maps & Data | OpenStreetMap + Overpass API | Emergency service locations |
-| Location | Geolocation API + Haversine Formula | GPS tracking & distance |
-| Voice | Web Speech API | Voice command recognition |
-| Speech | Web Speech Synthesis | Voice guidance output |
-| Hosting | Netlify / GitHub Pages | Deployment |
-
----
-
-## 📊 Distance Color Coding
-
-| Distance | Color | Meaning |
-|-----------|--------|---------|
-| > 300m | 🟢 Green | Safe distance – continue walking |
-| 100–300m | 🟠 Orange | Getting close – stay alert |
-| < 100m | 🔴 Red | Almost there! Safety nearby |
-
----
-
-## 🧪 Testing
-
-### Test Voice Commands
-
-```text
-1. Click and hold 🎤 VOICE button
-2. Say "Where is safe" clearly
-3. Release button
-4. AI should respond verbally
-```
-
-### Test AI Detection
-
-```text
-1. Point camera at a person
-2. Check top of screen for "👤 PERSON DETECTED NEARBY"
-3. AI Status should show "👤 ASSIST MODE"
-```
-
-### Test Fire Detection
-
-```text
-1. Point camera at a red/orange object or fire source (safely!)
-2. AI should detect and announce "FIRE DETECTED! EVACUATE!"
-3. Status changes to "🔥 EVACUATE!"
+# Open Browser
+http://localhost:8000
 ```
 
 ---
 
 ## 🚀 Deployment
 
-### Deploy to Netlify (Recommended)
+### Deploy to Netlify
 
-```text
-1. Save the code as index.html
-2. Go to app.netlify.com/drop
-3. Drag and drop your index.html file
-4. Your site is live in 10 seconds
+```bash
+1. Save project files
+2. Visit https://app.netlify.com/drop
+3. Drag & Drop project folder
+4. Site goes live instantly
 ```
 
 ### Deploy to GitHub Pages
 
-```text
-1. Push code to GitHub repository
-2. Go to Settings → Pages
-3. Select Branch: main → / (root)
-4. Save and wait 2 minutes
-5. Visit:
-https://jahnavichaurasia67.github.io/Rescue-AI/
+```bash
+# Initialize Git
+git init
+
+# Add Files
+git add .
+
+# Commit
+git commit -m "Initial Commit"
+
+# Connect Repository
+git remote add origin https://github.com/jahnavichaurasia67-sys/Rescue-AI.git
+
+# Push Code
+git push -u origin main
 ```
 
+### Enable GitHub Pages
+
+```text
+GitHub Repository
+  → Settings
+  → Pages
+  → Source: Deploy from Branch
+  → Branch: main
+  → Folder: /root
+  → Save
+```
+
+Your site will be available at:
+
+https://jahnavichaurasia67-sys.github.io/Rescue-AI/
+
+'''
 ---
 
 ## 🗺️ Roadmap
@@ -404,16 +370,6 @@ For commercial licensing, contact via GitHub.
 | Live Demo |  https://jahnavichaurasia67-sys.github.io/Rescue-AI/ |
 | GitHub | https://github.com/jahnavichaurasia67-sys/Rescue-AI |
 | Issues | GitHub Issues |
-
----
-
-## 📊 Repository Stats
-
-![Stars](https://img.shields.io/github/stars/jahnavichaurasia67-sys/Rescue-AI?style=social)
-
-![Forks](https://img.shields.io/github/forks/jahnavichaurasia67-sys/Rescue-AI?style=social)
-
-![Watchers](https://img.shields.io/github/watchers/jahnavichaurasia67-sys/Rescue-AI?style=social)
 
 ---
 
